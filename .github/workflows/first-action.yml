@@ -5,11 +5,16 @@ on: [push]
 jobs:
   build:
     runs-on: self-hosted
+    strategy:
+      matrix:
+        python-version: ["pypy3.9", "pypy3.10", "3.9", "3.10", "3.11", "3.12"]
 
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python
       uses: actions/setup-python@v2
+      with:
+          python-version: ${{ matrix.python-version }}
 
 
     - name: Install dependencies
